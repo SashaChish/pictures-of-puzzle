@@ -3,8 +3,10 @@ import React from 'react'
 import StickySlider from './componens/StickySlider/StickiSliders'
 import PuzzleShuffle from './componens/Puzzle/PuzzleShuffle'
 import PuzzleBoard from './componens/Puzzle/PuzzleBoard'
-import { options } from './data/puzzleOptions'
 import shuffle from './data/shuffle'
+import { options } from './data/puzzleOptions'
+import { key } from './utils/api'
+import Loader from './componens/Loader/Loader'
 
 class App extends React.Component {
   constructor() {
@@ -18,9 +20,11 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const key = '17518139-b73def73b5f5b784fdb869618'
+    setTimeout(this.searchPhoto, 2000)
+  }
 
-    fetch(`https://pixabay.com/api/?key=${key}&image_type=photo`)
+  searchPhoto = () => {
+    return fetch(`https://pixabay.com/api/?key=${key}&image_type=photo`)
       .then(response => response.json())
       .then(json => json.hits)
       .then(hits => {
@@ -40,19 +44,26 @@ class App extends React.Component {
   }
 
   render() {
-    return (
-      <div className="margin-top">
-        <StickySlider
-          images={this.state.images}
-          changeImg={this.changeImgOnClick}
-        />
-        <hr className="hr-horizontal-gradient" />
-        <div className="container-boards">
-          <PuzzleShuffle values={this.state} />
-          <PuzzleBoard values={this.state} />
+    if (this.state.images.length) {
+      return (
+        <>
+          <StickySlider
+            images={this.state.images}
+            changeImg={this.changeImgOnClick}
+          />
+          <hr className="hr-horizontal-gradient" />
+          <div className="container-boards">
+            <PuzzleShuffle values={this.state} />
+            <PuzzleBoard values={this.state} />
+          </div>
+        </>
+      )
+    } else
+      return (
+        <div className="preloader">
+          <Loader />
         </div>
-      </div>
-    )
+      )
   }
 }
 

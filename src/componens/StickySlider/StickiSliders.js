@@ -15,22 +15,22 @@ class StickySlider extends React.Component {
       loop: true,
       loopFillGroupWithBlank: true,
       spaceBetween: 40,
-      pagination: {
-        el: '.swiper-pagination',
-        type: 'fraction',
-      },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      observer: true,
-      observeParents: true,
+      // pagination: {
+      //   el: '.swiper-pagination',
+      //   type: 'fraction',
+      // },
+      // navigation: {
+      //   nextEl: '.swiper-button-next',
+      //   prevEl: '.swiper-button-prev',
+      // },
+      // observer: true,
+      // observeParents: true,
     }
 
     return (
-      <Swiper {...params}>
-        {images.length &&
-          images.map(img => (
+      <div className="margin-top">
+        <Swiper {...params}>
+          {images.map(img => (
             <div key={img.id}>
               <Slide
                 url={img.url}
@@ -40,7 +40,8 @@ class StickySlider extends React.Component {
               ></Slide>
             </div>
           ))}
-      </Swiper>
+        </Swiper>
+      </div>
     )
   }
 }
