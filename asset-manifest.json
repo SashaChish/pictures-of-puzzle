@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/pictures-of-puzzle/static/css/main.b8ba23db.chunk.css",
+    "main.js": "/pictures-of-puzzle/static/js/main.544df801.chunk.js",
+    "main.js.map": "/pictures-of-puzzle/static/js/main.544df801.chunk.js.map",
+    "runtime-main.js": "/pictures-of-puzzle/static/js/runtime-main.d84bf9df.js",
+    "runtime-main.js.map": "/pictures-of-puzzle/static/js/runtime-main.d84bf9df.js.map",
+    "static/css/2.a1063ac4.chunk.css": "/pictures-of-puzzle/static/css/2.a1063ac4.chunk.css",
+    "static/js/2.20193440.chunk.js": "/pictures-of-puzzle/static/js/2.20193440.chunk.js",
+    "static/js/2.20193440.chunk.js.map": "/pictures-of-puzzle/static/js/2.20193440.chunk.js.map",
+    "index.html": "/pictures-of-puzzle/index.html",
+    "precache-manifest.edcde19b4d14a1aa3a2416ace7ba7fe3.js": "/pictures-of-puzzle/precache-manifest.edcde19b4d14a1aa3a2416ace7ba7fe3.js",
+    "service-worker.js": "/pictures-of-puzzle/service-worker.js",
+    "static/css/2.a1063ac4.chunk.css.map": "/pictures-of-puzzle/static/css/2.a1063ac4.chunk.css.map",
+    "static/css/main.b8ba23db.chunk.css.map": "/pictures-of-puzzle/static/css/main.b8ba23db.chunk.css.map",
+    "static/js/2.20193440.chunk.js.LICENSE.txt": "/pictures-of-puzzle/static/js/2.20193440.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d84bf9df.js",
+    "static/css/2.a1063ac4.chunk.css",
+    "static/js/2.20193440.chunk.js",
+    "static/css/main.b8ba23db.chunk.css",
+    "static/js/main.544df801.chunk.js"
+  ]
+}
