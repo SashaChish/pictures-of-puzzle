@@ -12,8 +12,8 @@ class StickySlider extends React.Component {
     const params = {
       slidesPerView: 4,
       slidesPerGroup: 2,
-      loop: true,
-      loopFillGroupWithBlank: true,
+      // loop: true,
+      // loopFillGroupWithBlank: true,
       spaceBetween: 40,
       // pagination: {
       //   el: '.swiper-pagination',

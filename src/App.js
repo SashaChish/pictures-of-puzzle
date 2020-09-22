@@ -1,8 +1,7 @@
 import React from 'react'
 
 import StickySlider from './componens/StickySlider/StickiSliders'
-import PuzzleShuffle from './componens/Puzzle/PuzzleShuffle'
-import PuzzleBoard from './componens/Puzzle/PuzzleBoard'
+import PuzzleBoards from './componens/Puzzle/PuzzleBoards'
 import shuffle from './data/shuffle'
 import { options } from './data/puzzleOptions'
 import { key } from './utils/api'
@@ -16,14 +15,16 @@ class App extends React.Component {
       options: shuffle(options),
       images: [],
       targetURL: '',
+      active: false,
+      stylesCell: {},
     }
   }
 
   componentDidMount() {
-    setTimeout(this.searchPhoto, 2000)
+    setTimeout(this.searchPhotoRequest, 1000)
   }
 
-  searchPhoto = () => {
+  searchPhotoRequest = () => {
     return fetch(`https://pixabay.com/api/?key=${key}&image_type=photo`)
       .then(response => response.json())
       .then(json => json.hits)
@@ -38,9 +39,47 @@ class App extends React.Component {
   }
 
   changeImgOnClick = id => {
-    const targetURL = this.state.images.find(img => img.id === id).url
-    const options = shuffle(this.state.options)
-    this.setState({ targetURL, options })
+    let targetURL = this.state.images.find(img => img.id === id).url
+    targetURL = `url("${targetURL}")`
+
+    this.setState({ targetURL })
+  }
+
+  takeCellImg = e => {
+    const targetStyle = e.target.style
+    const { backgroundPosition, backgroundImage } = targetStyle
+
+    if (!this.state.active && backgroundImage) {
+      const stylesCell = {
+        position: backgroundPosition,
+        image: backgroundImage,
+      }
+
+      targetStyle.backgroundImage = null
+      this.setState({ stylesCell, active: true })
+    }
+  }
+
+  dropCellImg = e => {
+    const style = e.target.style
+    const {
+      active,
+      stylesCell: { position, posSwap, image },
+    } = this.state
+
+    if (active && !style.backgroundImage) {
+      style.backgroundPosition = position
+      style.backgroundImage = image
+
+      this.setState({ active: false })
+    } else if (!active && !posSwap) {
+      const posSwap = style.backgroundPosition
+      this.setState({ posSwap })
+    }
+  }
+
+  clearCellPuzzle = () => {
+    this.setState({ targetURL: '' })
   }
 
   render() {
@@ -52,10 +91,12 @@ class App extends React.Component {
             changeImg={this.changeImgOnClick}
           />
           <hr className="hr-horizontal-gradient" />
-          <div className="container-boards">
-            <PuzzleShuffle values={this.state} />
-            <PuzzleBoard values={this.state} />
-          </div>
+          <PuzzleBoards
+            values={this.state}
+            takeCellImg={this.takeCellImg}
+            dropCellImg={this.dropCellImg}
+            clearCellPuzzle={this.clearCellPuzzle}
+          />
         </>
       )
     } else

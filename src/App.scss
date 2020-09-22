@@ -4,6 +4,12 @@ $color: rgb(116, 64, 64);
   margin-top: 2rem;
 }
 
+h2 {
+  margin-bottom: 2rem;
+  color: $color;
+  text-align: center;
+}
+
 //Loader styles
 .preloader {
   width: inherit;
@@ -53,10 +59,10 @@ $color: rgb(116, 64, 64);
   border-radius: 5px;
   overflow: hidden;
   background-color: #fff;
-  width: 515px;
+  width: 500px;
 
   .content-sticky-slider {
-    box-sizing: border-box;
+    background-size: cover;
     height: 300px;
     margin: 0 2rem;
   }
@@ -66,25 +72,27 @@ $color: rgb(116, 64, 64);
     font-weight: 760;
     font-size: 1.60em;
     text-align: center;
-    padding: 1em;
+    padding: 0.7rem;
   }
 }
 
 .container-boards {
   display: flex;
-  justify-content: space-around;
-  margin-top: 4rem;
+  justify-content: space-evenly;
+  margin: 3rem 0 3rem 0;
+
+  .cell { 
+    width: 223.3px;
+    height: 156.6px;
+    background-size: 670px 470px;
+  }
 
   .shuffled-puzzles {
-    width: 800px;
-    height: 471px;
+    width: 700px;
+    height: 470px;
+    margin-top: 5.5rem;
     display: flex;
     flex-wrap: wrap;
-  
-    h2 {
-      margin-bottom: 50px;
-      color: $color;
-    }
   
     .loader {
       width: inherit;
@@ -97,10 +105,57 @@ $color: rgb(116, 64, 64);
   }
   
   .board-for-images {
-    width: 800px;
+    width: 700px;
     height: 470px;
     display: flex;
     flex-wrap: wrap;
+  }
+
+  .button-box {
+    display: flex;
+    align-items: center;
+
+    .button {
+      text-decoration: none;
+      outline: none;
+      color: $color;
+      display: inline-block;
+      position: relative;
+      padding: 15px 30px;
+      border: 1px solid;
+      border-image: linear-gradient(180deg, #5462c3, #5462c3, #ba872c, #ba872c);
+      border-image-slice: 1;
+      margin: 10px 20px;   
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 550;
+      text-transform: uppercase;
+      overflow: hidden;
+      letter-spacing: 2px;
+      transition: .8s cubic-bezier(.165,.84,.44,1);
+    
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 0;
+        width: 100%;
+        z-index: -1;
+        color: white;
+        background: linear-gradient(180deg, #faf0cd,  #fab397);
+        transition: .8s cubic-bezier(.165,.84,.44,1);
+      }
+    
+      &:hover {
+        background: rgba(255,255,255,0);
+        
+        &:before {
+          bottom: 0%;
+          top: auto;
+          height: 100%;
+        }
+      }
+    }
   }
 }
 
@@ -111,3 +166,4 @@ $color: rgb(116, 64, 64);
   border: none;
   background: linear-gradient(4deg, #5462c3, #ba872c);
 }
+
