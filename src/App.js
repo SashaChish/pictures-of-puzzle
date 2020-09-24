@@ -12,16 +12,18 @@ class App extends React.Component {
     super()
 
     this.state = {
-      options: shuffle(options),
+      options,
+      shuffleOptions: [],
       images: [],
       targetURL: '',
       active: false,
+      clearBoard: false,
       stylesCell: {},
     }
   }
 
   componentDidMount() {
-    setTimeout(this.searchPhotoRequest, 1000)
+    this.searchPhotoRequest()
   }
 
   searchPhotoRequest = () => {
@@ -34,29 +36,35 @@ class App extends React.Component {
           tags: hit.tags,
           url: hit.webformatURL,
         }))
+
         this.setState({ images })
       })
   }
 
   changeImgOnClick = id => {
     let targetURL = this.state.images.find(img => img.id === id).url
-    targetURL = `url("${targetURL}")`
 
-    this.setState({ targetURL })
+    const values = {
+      shuffleOptions: shuffle(options),
+      targetURL: `url("${targetURL}")`,
+    }
+
+    this.setState({ ...values })
   }
 
-  takeCellImg = e => {
-    const targetStyle = e.target.style
-    const { backgroundPosition, backgroundImage } = targetStyle
+  takeCellImg = (id, e) => {
+    const { backgroundPosition, backgroundImage } = e.target.style
+    const { active, shuffleOptions } = this.state
 
-    if (!this.state.active && backgroundImage) {
+    if (!active && backgroundImage) {
       const stylesCell = {
         position: backgroundPosition,
-        image: backgroundImage,
+        url: backgroundImage,
       }
+      const options = shuffleOptions.filter(item => item.id !== id)
+      const values = { stylesCell, shuffleOptions: options, active: true }
 
-      targetStyle.backgroundImage = null
-      this.setState({ stylesCell, active: true })
+      this.setState({ ...values })
     }
   }
 
@@ -64,22 +72,39 @@ class App extends React.Component {
     const style = e.target.style
     const {
       active,
-      stylesCell: { position, posSwap, image },
+      stylesCell: { position, url },
     } = this.state
 
     if (active && !style.backgroundImage) {
       style.backgroundPosition = position
-      style.backgroundImage = image
+      style.backgroundImage = url
 
       this.setState({ active: false })
-    } else if (!active && !posSwap) {
-      const posSwap = style.backgroundPosition
-      this.setState({ posSwap })
+    }
+  }
+
+  takeCellGameBoard = (id, e) => {
+    e.preventDefault()
+
+    this.setState({ switchId: id })
+  }
+
+  switchCellGameBoard = id => {
+    const { options, switchId } = this.state
+    if (id !== switchId) {
+      options.map(option => {
+        if (option.id === id) return (option.id = switchId)
+        else if (option.id === switchId) return (option.id = id)
+
+        return option
+      })
+
+      this.setState({ options })
     }
   }
 
   clearCellPuzzle = () => {
-    this.setState({ targetURL: '' })
+    this.setState({ clearBoard: !this.state.clearBoard, targetURL: '' })
   }
 
   render() {
@@ -96,6 +121,8 @@ class App extends React.Component {
             takeCellImg={this.takeCellImg}
             dropCellImg={this.dropCellImg}
             clearCellPuzzle={this.clearCellPuzzle}
+            takeCellGameBoard={this.takeCellGameBoard}
+            switchCellGameBoard={this.switchCellGameBoard}
           />
         </>
       )

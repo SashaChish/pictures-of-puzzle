@@ -1,13 +1,13 @@
 export default function shuffle(arr) {
   let j, temp
+  const newArray = [...arr]
 
-  for (let i = arr.length - 1; i > 0; i--) {
+  for (let i = newArray.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1))
-    temp = arr[j]
-    arr[j] = arr[i]
-    arr[i] = temp
+    temp = newArray[j]
+    newArray[j] = newArray[i]
+    newArray[i] = temp
   }
-  
-  return arr
-}
 
+  return newArray
+}

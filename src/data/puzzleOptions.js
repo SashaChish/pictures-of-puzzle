@@ -1,38 +1,57 @@
 export const options = [
   {
     id: 1,
-    position: 'top left',
+    item: {
+      id: 1,
+      position: 'top left',
+    },
   },
   {
     id: 2,
-    position: 'top',
+    item: {
+      position: 'top',
+    },
   },
   {
     id: 3,
-    position: 'right top',
+    item: {
+      position: 'right top',
+    },
   },
   {
     id: 4,
-    position: 'left',
+    item: {
+      position: 'left',
+    },
   },
   {
     id: 5,
-    position: 'center',
+    item: {
+      position: 'center',
+    },
   },
   {
     id: 6,
-    position: 'right',
+    item: {
+      position: 'right',
+    },
   },
   {
     id: 7,
-    position: 'bottom left',
+    item: {
+      position: 'bottom left',
+    },
   },
   {
     id: 8,
-    position: 'bottom',
+    item: {
+      position: 'bottom',
+    },
   },
   {
     id: 9,
-    position: 'bottom right',
+    item: {
+      position: 'bottom right',
+    },
   },
 ]

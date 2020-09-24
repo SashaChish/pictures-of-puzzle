@@ -9,7 +9,7 @@ class Slide extends React.Component {
         <div className="container-sticky-slider">
           <div
             className="content-sticky-slider"
-            onClick={changeImg.bind(this, id)}
+            onClick={changeImg.bind(null, id)}
             style={{ backgroundImage: `url(${url})` }}
           />
           <div className="footer-sticky-slider">{title}</div>

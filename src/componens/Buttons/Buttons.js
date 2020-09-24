@@ -6,7 +6,11 @@ class Buttons extends React.Component {
 
     return (
       <div className="button-box">
-        <button className="button" onClick={clearCellPuzzle.bind(this)}>
+        <button
+          className="button"
+          onMouseUp={clearCellPuzzle.bind(null)}
+          onMouseDown={clearCellPuzzle.bind(null)}
+        >
           Clear Board
         </button>
       </div>

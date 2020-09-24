@@ -2,18 +2,24 @@ import React from 'react'
 
 class BoardShuffle extends React.Component {
   render() {
-    const { url, options, takeCellImg } = this.props
-
+    const {
+      url,
+      id,
+      options: {
+        item: { position },
+      },
+      takeCellImg,
+    } = this.props
     const styles = {
       backgroundImage: url,
-      backgroundPosition: options.position,
+      backgroundPosition: position,
     }
 
     return (
       <div
         className="cell"
         style={styles}
-        onMouseDown={takeCellImg.bind(this)}
+        onClick={takeCellImg.bind(null, id)}
       />
     )
   }

@@ -6,15 +6,23 @@ import Buttons from '../Buttons/Buttons'
 
 class PuzzleBoards extends React.Component {
   render() {
-    const { values, takeCellImg, dropCellImg, clearCellPuzzle } = this.props
+    const {
+      values,
+      takeCellImg,
+      dropCellImg,
+      takeCellGameBoard,
+      switchCellGameBoard,
+      clearCellPuzzle,
+    } = this.props
 
     return (
       <div className="container-boards">
         <div className="shuffled-puzzles">
           {values.targetURL ? (
-            values.options.map(option => (
+            values.shuffleOptions.map(option => (
               <BoardShuffle
                 key={option.id}
+                id={option.id}
                 url={values.targetURL}
                 takeCellImg={takeCellImg}
                 options={option}
@@ -27,13 +35,19 @@ class PuzzleBoards extends React.Component {
             </div>
           )}
         </div>
-
-        <Buttons clearCellPuzzle={clearCellPuzzle.bind(this)} />
+        <Buttons clearCellPuzzle={clearCellPuzzle} />
         <div>
           <h2>Game board</h2>
           <div className="board-for-images">
-            {values.options.map((option, index) => (
-              <BoardForPlay key={option.id} dropCellImg={dropCellImg} />
+            {values.options.map(option => (
+              <BoardForPlay
+                key={option.id}
+                id={option.id}
+                clearBoard={values.clearBoard}
+                dropCellImg={dropCellImg}
+                takeCell={takeCellGameBoard}
+                switchCell={switchCellGameBoard}
+              />
             ))}
           </div>
         </div>
