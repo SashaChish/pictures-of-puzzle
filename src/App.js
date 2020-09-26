@@ -16,6 +16,7 @@ class App extends React.Component {
       shuffleOptions: [],
       images: [],
       targetURL: '',
+      switchId: 1,
       active: false,
       clearBoard: false,
       stylesCell: {},
@@ -46,7 +47,7 @@ class App extends React.Component {
 
     const values = {
       shuffleOptions: shuffle(options),
-      targetURL: `url("${targetURL}")`,
+      targetURL: `url(${targetURL})`,
     }
 
     this.setState({ ...values })
@@ -61,6 +62,7 @@ class App extends React.Component {
         position: backgroundPosition,
         url: backgroundImage,
       }
+
       const options = shuffleOptions.filter(item => item.id !== id)
       const values = { stylesCell, shuffleOptions: options, active: true }
 
@@ -85,12 +87,12 @@ class App extends React.Component {
 
   takeCellGameBoard = (id, e) => {
     e.preventDefault()
-
     this.setState({ switchId: id })
   }
 
   switchCellGameBoard = id => {
     const { options, switchId } = this.state
+
     if (id !== switchId) {
       options.map(option => {
         if (option.id === id) return (option.id = switchId)

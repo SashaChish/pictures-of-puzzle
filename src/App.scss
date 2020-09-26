@@ -98,6 +98,26 @@ h2 {
     margin-top: 5.5rem;
     display: flex;
     flex-wrap: wrap;
+
+    .cell:hover {
+      transform: scale(1.1);
+      -webkit-transform: scale(1.1);
+      -ms-transform: scale(1.1);
+      animation: fokus 0.5s;
+    }
+
+    @keyframes fokus {
+      0% { 
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+      }
+      100% {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+      }
+    }
   
     .loader {
       width: inherit;
@@ -109,7 +129,7 @@ h2 {
     }
   }
   
-  .board-for-images {
+  .board-for-play {
     width: 700px;
     height: 470px;
     display: flex;

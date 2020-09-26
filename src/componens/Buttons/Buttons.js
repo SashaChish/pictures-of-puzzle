@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Buttons extends React.Component {
   render() {
@@ -7,15 +8,20 @@ class Buttons extends React.Component {
     return (
       <div className="button-box">
         <button
+          type="button"
           className="button"
-          onMouseUp={clearCellPuzzle.bind(null)}
-          onMouseDown={clearCellPuzzle.bind(null)}
+          onMouseUp={clearCellPuzzle}
+          onMouseDown={clearCellPuzzle}
         >
-          Clear Board
+          Clear Boards
         </button>
       </div>
     )
   }
+}
+
+Buttons.propTypes = {
+  clearCellPuzzle: PropTypes.func.isRequired,
 }
 
 export default Buttons

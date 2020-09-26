@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+
 import BoardShuffle from './BoardShuffle'
 import Loader from '../Loader/Loader'
 import BoardForPlay from './BoardForPlay'
@@ -15,16 +17,21 @@ class PuzzleBoards extends React.Component {
       clearCellPuzzle,
     } = this.props
 
+    const shuffledSize = {
+      width: values.shuffleOptions.length <= 6 ? '600px' : '700px',
+      height: values.shuffleOptions.length <= 4 ? '200px' : '470px',
+    }
+
     return (
       <div className="container-boards">
-        <div className="shuffled-puzzles">
+        <div className="shuffled-puzzles" style={shuffledSize}>
           {values.targetURL ? (
             values.shuffleOptions.map(option => (
               <BoardShuffle
                 key={option.id}
                 id={option.id}
                 url={values.targetURL}
-                takeCellImg={takeCellImg}
+                takeCell={takeCellImg}
                 options={option}
               />
             ))
@@ -38,13 +45,13 @@ class PuzzleBoards extends React.Component {
         <Buttons clearCellPuzzle={clearCellPuzzle} />
         <div>
           <h2>Game board</h2>
-          <div className="board-for-images">
+          <div className="board-for-play">
             {values.options.map(option => (
               <BoardForPlay
                 key={option.id}
                 id={option.id}
                 clearBoard={values.clearBoard}
-                dropCellImg={dropCellImg}
+                dropCell={dropCellImg}
                 takeCell={takeCellGameBoard}
                 switchCell={switchCellGameBoard}
               />
@@ -54,6 +61,15 @@ class PuzzleBoards extends React.Component {
       </div>
     )
   }
+}
+
+PuzzleBoards.propTypes = {
+  values: PropTypes.object.isRequired,
+  takeCellImg: PropTypes.func.isRequired,
+  dropCellImg: PropTypes.func.isRequired,
+  takeCellGameBoard: PropTypes.func.isRequired,
+  switchCellGameBoard: PropTypes.func.isRequired,
+  clearCellPuzzle: PropTypes.func.isRequired,
 }
 
 export default PuzzleBoards

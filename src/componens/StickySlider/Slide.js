@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class Slide extends React.Component {
   render() {
@@ -17,6 +18,13 @@ class Slide extends React.Component {
       )
     } else return
   }
+}
+
+Slide.propTypes = {
+  url: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  changeImg: PropTypes.func.isRequired,
 }
 
 export default Slide
