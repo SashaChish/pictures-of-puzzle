@@ -2,9 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Swiper from 'react-id-swiper'
-import 'swiper/swiper.scss'
-// import 'swiper/swiper-bundle.min.css'
-
+import 'swiper//css/swiper.css'
 import Slide from './Slide'
 
 class StickySlider extends React.Component {
@@ -14,19 +12,23 @@ class StickySlider extends React.Component {
       slidesPerView: 4,
       slidesPerGroup: 2,
       spaceBetween: 40,
-
-      // loop: true,
-      // loopFillGroupWithBlank: true,
-      // pagination: {
-      //   el: '.swiper-pagination',
-      //   type: 'fraction',
-      // },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
+      grabCursor: true,
+      effect: 'coverflow',
+      coverflowEffect: {
+        rotate: 30,
+        stretch: 10,
+        depth: 50,
+        modifier: 1,
+        slideShadows: false,
       },
-      // observer: true,
-      // observeParents: true,
+      pagination: {
+        el: '.swiper-pagination',
+        type: 'fraction',
+      },
+      navigation: {
+        nextEl: '.swiper-button-next.swiper-button-black',
+        prevEl: '.swiper-button-prev.swiper-button-black',
+      },
     }
 
     return (

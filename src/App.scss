@@ -98,6 +98,7 @@ h2 {
     margin-top: 5.5rem;
     display: flex;
     flex-wrap: wrap;
+    cursor: grab;
 
     .cell:hover {
       transform: scale(1.1);
@@ -130,10 +131,15 @@ h2 {
   }
   
   .board-for-play {
+    cursor: grab;
     width: 700px;
     height: 470px;
     display: flex;
     flex-wrap: wrap;
+
+    &:active { 
+      cursor: grabbing;
+    }
   }
 
   .button-box {
