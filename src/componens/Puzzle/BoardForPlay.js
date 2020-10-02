@@ -10,12 +10,10 @@ class BoardForPlay extends React.Component {
   outFokus = e => e.target.classList.remove('cell-fokus')
 
   render() {
-    const { id, dropCell, takeCell, switchCell, clearBoard } = this.props
-    const voidURL = 'none'
+    const { id, dropCell, takeCell, switchCell } = this.props
 
     const styles = {
       border: '1px solid rgb(116, 64, 64)',
-      backgroundImage: clearBoard ? voidURL : null,
     }
 
     return (
@@ -37,7 +35,6 @@ BoardForPlay.propTypes = {
   dropCell: PropTypes.func.isRequired,
   takeCell: PropTypes.func.isRequired,
   switchCell: PropTypes.func.isRequired,
-  clearBoard: PropTypes.bool.isRequired,
 }
 
 export default BoardForPlay

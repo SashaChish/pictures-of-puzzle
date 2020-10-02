@@ -2,7 +2,6 @@ export const options = [
   {
     id: 1,
     item: {
-      id: 1,
       position: 'top left',
     },
   },

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Swiper from 'react-id-swiper'
 import 'swiper/swiper.scss'
-// import 'swiper/swiper-bundle.css'
+// import 'swiper/swiper-bundle.min.css'
 
 import Slide from './Slide'
 
@@ -14,6 +14,7 @@ class StickySlider extends React.Component {
       slidesPerView: 4,
       slidesPerGroup: 2,
       spaceBetween: 40,
+
       // loop: true,
       // loopFillGroupWithBlank: true,
       // pagination: {

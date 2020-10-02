@@ -42,22 +42,23 @@ class PuzzleBoards extends React.Component {
             </div>
           )}
         </div>
-        <Buttons clearCellPuzzle={clearCellPuzzle} />
-        <div>
-          <h2>Game board</h2>
-          <div className="board-for-play">
-            {values.options.map(option => (
-              <BoardForPlay
-                key={option.id}
-                id={option.id}
-                clearBoard={values.clearBoard}
-                dropCell={dropCellImg}
-                takeCell={takeCellGameBoard}
-                switchCell={switchCellGameBoard}
-              />
-            ))}
+        {values.targetURL && <Buttons clearCellPuzzle={clearCellPuzzle} />}
+        {values.targetURL && (
+          <div>
+            <h2>Game board</h2>
+            <div className="board-for-play">
+              {values.options.map(option => (
+                <BoardForPlay
+                  key={option.id}
+                  id={option.id}
+                  dropCell={dropCellImg}
+                  takeCell={takeCellGameBoard}
+                  switchCell={switchCellGameBoard}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     )
   }

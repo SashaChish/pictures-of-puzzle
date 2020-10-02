@@ -7,12 +7,7 @@ class Buttons extends React.Component {
 
     return (
       <div className="button-box">
-        <button
-          type="button"
-          className="button"
-          onMouseUp={clearCellPuzzle}
-          onMouseDown={clearCellPuzzle}
-        >
+        <button type="button" className="button" onClick={clearCellPuzzle}>
           Clear Boards
         </button>
       </div>
