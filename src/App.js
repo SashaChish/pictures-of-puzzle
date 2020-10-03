@@ -15,6 +15,7 @@ class App extends React.Component {
       options,
       shuffleOptions: [],
       images: [],
+      perPage: 20,
       targetURL: '',
       switchId: 1,
       active: false,
@@ -23,11 +24,19 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.searchPhotoRequest()
+    setTimeout(this.getImages, 2000)
   }
 
-  searchPhotoRequest = () => {
-    return fetch(`https://pixabay.com/api/?key=${key}&image_type=photo`)
+  componentDidUpdate(props, state) {
+    if (state.perPage !== this.state.perPage) {
+      this.getImages(this.state.perPage)
+    }
+  }
+
+  getImages = perPage => {
+    fetch(
+      `https://pixabay.com/api/?key=${key}&image_type=photo&per_page=${perPage}`
+    )
       .then(response => response.json())
       .then(json => json.hits)
       .then(hits => {
@@ -40,6 +49,8 @@ class App extends React.Component {
         this.setState({ images })
       })
   }
+
+  morePictures = () => this.setState({ perPage: this.state.perPage + 20 })
 
   changeImgOnClick = id => {
     let targetURL = this.state.images.find(img => img.id === id).url
@@ -130,6 +141,7 @@ class App extends React.Component {
             clearCellPuzzle={this.clearCellPuzzle}
             takeCellGameBoard={this.takeCellGameBoard}
             switchCellGameBoard={this.switchCellGameBoard}
+            morePictures={this.morePictures}
           />
         </>
       )

@@ -8,11 +8,13 @@ import Slide from './Slide'
 class StickySlider extends React.Component {
   render() {
     const { images, changeImg } = this.props
+
     const params = {
       slidesPerView: 4,
       slidesPerGroup: 2,
       spaceBetween: 40,
       grabCursor: true,
+      observer: true,
       effect: 'coverflow',
       coverflowEffect: {
         rotate: 30,

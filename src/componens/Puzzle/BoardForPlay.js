@@ -12,14 +12,9 @@ class BoardForPlay extends React.Component {
   render() {
     const { id, dropCell, takeCell, switchCell } = this.props
 
-    const styles = {
-      border: '1px solid rgb(116, 64, 64)',
-    }
-
     return (
       <div
-        style={styles}
-        className="cell"
+        className="cell border"
         onClick={dropCell}
         onMouseDown={takeCell.bind(null, id)}
         onMouseUp={switchCell.bind(null, id)}

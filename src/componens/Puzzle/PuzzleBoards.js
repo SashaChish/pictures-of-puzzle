@@ -15,6 +15,7 @@ class PuzzleBoards extends React.Component {
       takeCellGameBoard,
       switchCellGameBoard,
       clearCellPuzzle,
+      morePictures,
     } = this.props
 
     const shuffledSize = {
@@ -42,7 +43,13 @@ class PuzzleBoards extends React.Component {
             </div>
           )}
         </div>
-        {values.targetURL && <Buttons clearCellPuzzle={clearCellPuzzle} />}
+        {values.targetURL && (
+          <Buttons
+            perPage={values.perPage}
+            clearCellPuzzle={clearCellPuzzle}
+            morePictures={morePictures}
+          />
+        )}
         {values.targetURL && (
           <div>
             <h2>Game board</h2>
@@ -66,6 +73,7 @@ class PuzzleBoards extends React.Component {
 
 PuzzleBoards.propTypes = {
   values: PropTypes.object.isRequired,
+  morePictures: PropTypes.func.isRequired,
   takeCellImg: PropTypes.func.isRequired,
   dropCellImg: PropTypes.func.isRequired,
   takeCellGameBoard: PropTypes.func.isRequired,
