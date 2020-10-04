@@ -2,9 +2,9 @@ import React from 'react'
 
 import StickySlider from './componens/StickySlider/StickiSliders'
 import PuzzleBoards from './componens/Puzzle/PuzzleBoards'
-import shuffle from './data/shuffle'
+import shuffle from './utils/shuffle'
 import { options } from './data/puzzleOptions'
-import { key } from './utils/api'
+import { key } from './data/api'
 import Loader from './componens/Loader/Loader'
 
 class App extends React.Component {
@@ -24,7 +24,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(this.getImages, 2000)
+    // setTimeout(this.getImages, 2000)
+    this.getImages()
   }
 
   componentDidUpdate(props, state) {

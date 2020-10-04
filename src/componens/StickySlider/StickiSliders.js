@@ -6,6 +6,30 @@ import 'swiper//css/swiper.css'
 import Slide from './Slide'
 
 class StickySlider extends React.Component {
+  constructor() {
+    super()
+
+    this.swiperRef = React.createRef()
+  }
+
+  goEnd = () => {
+    const { current } = this.swiperRef
+    const groupEnd = this.props.images.length
+
+    if (current && current.swiper) {
+      current.swiper.slideTo(groupEnd)
+    }
+  }
+
+  goStart = () => {
+    const { current } = this.swiperRef
+    const groupStart = 0
+
+    if (current && current.swiper) {
+      current.swiper.slideTo(groupStart)
+    }
+  }
+
   render() {
     const { images, changeImg } = this.props
 
@@ -35,7 +59,7 @@ class StickySlider extends React.Component {
 
     return (
       <div className="margin-top">
-        <Swiper {...params}>
+        <Swiper {...params} ref={this.swiperRef}>
           {images.map(img => (
             <div key={img.id}>
               <Slide
@@ -47,6 +71,12 @@ class StickySlider extends React.Component {
             </div>
           ))}
         </Swiper>
+        <div className="swiper-button-container"> 
+          <button type="button" className="button-swiper" onClick={this.goStart}>
+            Start
+          </button>
+          <button type="button" className="button-swiper" onClick={this.goEnd}>End</button>
+        </div>
       </div>
     )
   }

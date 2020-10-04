@@ -1,5 +1,47 @@
 $color: rgb(116, 64, 64);
 
+@mixin button {
+  text-decoration: none;
+  outline: none;
+  color: $color;
+  display: inline-block;
+  position: relative;
+  padding: 15px 30px;
+  border: 1px solid;
+  border-image: linear-gradient(180deg, #5462c3, #5462c3, #ba872c, #ba872c);
+  border-image-slice: 1;
+  margin: 10px 20px;   
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 550;
+  text-transform: uppercase;
+  overflow: hidden;
+  letter-spacing: 2px;
+  transition: .8s cubic-bezier(.165,.84,.44,1);
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 100%;
+    z-index: -1;
+    color: white;
+    background: linear-gradient(180deg, #faf0cd,  #fab397);
+    transition: .8s cubic-bezier(.165,.84,.44,1);
+  }
+
+  &:hover {
+    background: rgba(255,255,255,0);
+    
+    &:before {
+      bottom: 0%;
+      top: auto;
+      height: 100%;
+    }
+  }
+}
+
 .margin-top {
   margin-top: 2rem;
 }
@@ -83,6 +125,45 @@ h2 {
   }
 }
 
+.swiper-button-container {
+  display: flex;
+  justify-content: center;
+
+  .button-swiper {
+    text-decoration: none;
+    outline: none;
+    display: inline-block;
+    margin: 10px 20px;
+    padding: 10px 30px;
+    position: relative;
+    border: 1px solid $color;
+    color: $color;
+    font-family: 'Montserrat', sans-serif; 
+    font-size: large;
+    transition: .4s;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      border: 1px solid $color;
+      transition: .4s;
+    }
+  }
+  & .button-swiper:hover:after {
+    border-color: $color;
+    width: calc(100% - 10px);
+    height: calc(100% + 10px);
+  }
+}
+
+
 .container-boards {
   display: flex;
   justify-content: space-evenly;
@@ -165,46 +246,7 @@ h2 {
 
     .button {
       min-width: 220px;
-      text-decoration: none;
-      outline: none;
-      color: $color;
-      display: inline-block;
-      position: relative;
-      padding: 15px 30px;
-      border: 1px solid;
-      border-image: linear-gradient(180deg, #5462c3, #5462c3, #ba872c, #ba872c);
-      border-image-slice: 1;
-      margin: 10px 20px;   
-      font-family: 'Montserrat', sans-serif;
-      font-weight: 550;
-      text-transform: uppercase;
-      overflow: hidden;
-      letter-spacing: 2px;
-      transition: .8s cubic-bezier(.165,.84,.44,1);
-    
-      &:before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 0;
-        width: 100%;
-        z-index: -1;
-        color: white;
-        background: linear-gradient(180deg, #faf0cd,  #fab397);
-        transition: .8s cubic-bezier(.165,.84,.44,1);
-      }
-    
-      &:hover {
-        background: rgba(255,255,255,0);
-        
-        &:before {
-          bottom: 0%;
-          top: auto;
-          height: 100%;
-        }
-      }
+      @include button();
     }
   }
 }
-
