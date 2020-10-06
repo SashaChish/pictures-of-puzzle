@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/pictures-of-puzzle/static/css/main.6c1b8899.chunk.css",
-    "main.js": "/pictures-of-puzzle/static/js/main.a9f4bfec.chunk.js",
-    "main.js.map": "/pictures-of-puzzle/static/js/main.a9f4bfec.chunk.js.map",
+    "main.js": "/pictures-of-puzzle/static/js/main.afe634d9.chunk.js",
+    "main.js.map": "/pictures-of-puzzle/static/js/main.afe634d9.chunk.js.map",
     "runtime-main.js": "/pictures-of-puzzle/static/js/runtime-main.d84bf9df.js",
     "runtime-main.js.map": "/pictures-of-puzzle/static/js/runtime-main.d84bf9df.js.map",
     "static/css/2.508070a3.chunk.css": "/pictures-of-puzzle/static/css/2.508070a3.chunk.css",
     "static/js/2.f6710675.chunk.js": "/pictures-of-puzzle/static/js/2.f6710675.chunk.js",
     "static/js/2.f6710675.chunk.js.map": "/pictures-of-puzzle/static/js/2.f6710675.chunk.js.map",
     "index.html": "/pictures-of-puzzle/index.html",
-    "precache-manifest.c9fe32a187374d205d9d5db777b5f5e6.js": "/pictures-of-puzzle/precache-manifest.c9fe32a187374d205d9d5db777b5f5e6.js",
+    "precache-manifest.d50e6ec02fec688962fe13209a47adee.js": "/pictures-of-puzzle/precache-manifest.d50e6ec02fec688962fe13209a47adee.js",
     "service-worker.js": "/pictures-of-puzzle/service-worker.js",
     "static/css/2.508070a3.chunk.css.map": "/pictures-of-puzzle/static/css/2.508070a3.chunk.css.map",
     "static/css/main.6c1b8899.chunk.css.map": "/pictures-of-puzzle/static/css/main.6c1b8899.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.508070a3.chunk.css",
     "static/js/2.f6710675.chunk.js",
     "static/css/main.6c1b8899.chunk.css",
-    "static/js/main.a9f4bfec.chunk.js"
+    "static/js/main.afe634d9.chunk.js"
   ]
 }
