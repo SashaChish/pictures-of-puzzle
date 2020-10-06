@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Swiper from 'react-id-swiper'
-import 'swiper//css/swiper.css'
 import Slide from './Slide'
+import Navigation from './Navigation'
+import 'swiper//css/swiper.css'
 
 class StickySlider extends React.Component {
   constructor() {
@@ -12,22 +13,27 @@ class StickySlider extends React.Component {
     this.swiperRef = React.createRef()
   }
 
-  goEnd = () => {
-    const { current } = this.swiperRef
-    const groupEnd = this.props.images.length
-
-    if (current && current.swiper) {
-      current.swiper.slideTo(groupEnd)
-    }
-  }
-
   goStart = () => {
     const { current } = this.swiperRef
     const groupStart = 0
 
-    if (current && current.swiper) {
-      current.swiper.slideTo(groupStart)
-    }
+    current.swiper.slideTo(groupStart, 1000)
+  }
+
+  goCurrent = () => {
+    const { images, targetURL } = this.props
+    const { current } = this.swiperRef
+
+    const currentIndex = images.findIndex(img => img.url === targetURL)
+
+    if (currentIndex !== -1) current.swiper.slideTo(currentIndex - 1, 1000)
+  }
+
+  goEnd = () => {
+    const { current } = this.swiperRef
+    const groupEnd = this.props.images.length
+
+    current.swiper.slideTo(groupEnd, 1000)
   }
 
   render() {
@@ -41,9 +47,9 @@ class StickySlider extends React.Component {
       observer: true,
       effect: 'coverflow',
       coverflowEffect: {
-        rotate: 30,
+        rotate: 40,
         stretch: 10,
-        depth: 50,
+        depth: 150,
         modifier: 1,
         slideShadows: false,
       },
@@ -71,12 +77,11 @@ class StickySlider extends React.Component {
             </div>
           ))}
         </Swiper>
-        <div className="swiper-button-container"> 
-          <button type="button" className="button-swiper" onClick={this.goStart}>
-            Start
-          </button>
-          <button type="button" className="button-swiper" onClick={this.goEnd}>End</button>
-        </div>
+        <Navigation
+          start={this.goStart}
+          current={this.goCurrent}
+          end={this.goEnd}
+        />
       </div>
     )
   }
@@ -85,6 +90,7 @@ class StickySlider extends React.Component {
 StickySlider.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   changeImg: PropTypes.func.isRequired,
+  targetURL: PropTypes.string.isRequired,
 }
 
 export default StickySlider

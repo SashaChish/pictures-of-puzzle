@@ -24,8 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // setTimeout(this.getImages, 2000)
-    this.getImages()
+    setTimeout(this.getImages, 2000)
   }
 
   componentDidUpdate(props, state) {
@@ -57,7 +56,7 @@ class App extends React.Component {
     let targetURL = this.state.images.find(img => img.id === id).url
     const values = {
       shuffleOptions: shuffle(options),
-      targetURL: `url(${targetURL})`,
+      targetURL,
     }
 
     this.setState(values)
@@ -126,12 +125,14 @@ class App extends React.Component {
     }, 200)
   }
 
+
   render() {
     if (this.state.images.length) {
       return (
         <>
           <StickySlider
             images={this.state.images}
+            targetURL={this.state.targetURL}
             changeImg={this.changeImgOnClick}
           />
           <hr className="hr-horizontal-gradient" />

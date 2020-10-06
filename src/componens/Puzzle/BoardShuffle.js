@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class BoardShuffle extends React.Component {
+
   render() {
     const {
       url,
@@ -13,12 +14,15 @@ class BoardShuffle extends React.Component {
     } = this.props
 
     const styles = {
-      backgroundImage: url,
+      backgroundImage: `url(${url})`,
       backgroundPosition: position,
     }
 
     return (
-      <div className="cell" style={styles} onClick={takeCell.bind(null, id)} />
+      <div className="cell" 
+      style={styles} 
+      onClick={takeCell.bind(null, id)} 
+      />
     )
   }
 }
