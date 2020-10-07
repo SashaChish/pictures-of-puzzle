@@ -1,4 +1,4 @@
-export const options = [
+export const initialOptions = [
   {
     id: 1,
     item: {

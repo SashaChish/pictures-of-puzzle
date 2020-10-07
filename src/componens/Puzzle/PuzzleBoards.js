@@ -54,10 +54,12 @@ class PuzzleBoards extends React.Component {
           <div>
             <h2>Game board</h2>
             <div className="board-for-play">
-              {values.options.map(option => (
+              {values.options.map((option, index) => (
                 <BoardForPlay
+                  url={values.targetURL}
+                  index={index}
                   key={option.id}
-                  id={option.id}
+                  option={option}
                   dropCell={dropCellImg}
                   takeCell={takeCellGameBoard}
                   switchCell={switchCellGameBoard}

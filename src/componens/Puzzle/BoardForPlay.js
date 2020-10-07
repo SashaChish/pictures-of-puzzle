@@ -2,22 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 class BoardForPlay extends React.Component {
+
   fokus = e => {
     e.preventDefault()
-    e.target.classList.add('cell-fokus')
+    e.target.style.border = '1px solid red'
   }
 
-  outFokus = e => e.target.classList.remove('cell-fokus')
+  outFokus = e => e.target.style.border = null
 
   render() {
-    const { id, dropCell, takeCell, switchCell } = this.props
-
+    const { option: {id, stylesCell}, index, dropCell, takeCell, switchCell,} = this.props
+    
     return (
       <div
         className="cell border"
-        onClick={dropCell}
-        onMouseDown={takeCell.bind(null, id)}
-        onMouseUp={switchCell.bind(null, id)}
+        style={stylesCell}
+        onClick={dropCell.bind(null, id)}
+        onMouseDown={takeCell.bind(null, index)}
+        onMouseUp={switchCell.bind(null, index)}
         onMouseOver={this.fokus}
         onMouseOut={this.outFokus}
       />
@@ -26,7 +28,10 @@ class BoardForPlay extends React.Component {
 }
 
 BoardForPlay.propTypes = {
-  id: PropTypes.number.isRequired,
+  option: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    item: PropTypes.object
+  }),
   dropCell: PropTypes.func.isRequired,
   takeCell: PropTypes.func.isRequired,
   switchCell: PropTypes.func.isRequired,

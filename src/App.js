@@ -3,7 +3,7 @@ import React from 'react'
 import StickySlider from './componens/StickySlider/StickiSliders'
 import PuzzleBoards from './componens/Puzzle/PuzzleBoards'
 import shuffle from './utils/shuffle'
-import { options } from './data/puzzleOptions'
+import { initialOptions } from './data/puzzleOptions'
 import { key } from './data/api'
 import Loader from './componens/Loader/Loader'
 
@@ -12,13 +12,13 @@ class App extends React.Component {
     super()
 
     this.state = {
-      options,
+      options: initialOptions,
       shuffleOptions: [],
       images: [],
       perPage: 20,
       targetURL: '',
-      switchId: 1,
-      active: false,
+      switchIndex: 0,
+      targetCell: false,
       stylesCell: {},
     }
   }
@@ -28,8 +28,10 @@ class App extends React.Component {
   }
 
   componentDidUpdate(props, state) {
-    if (state.perPage !== this.state.perPage) {
-      this.getImages(this.state.perPage)
+    const { perPage } = this.state
+
+    if (state.perPage !== perPage) {
+      this.getImages(perPage)
     }
   }
 
@@ -53,10 +55,24 @@ class App extends React.Component {
   morePictures = () => this.setState({ perPage: this.state.perPage + 20 })
 
   changeImgOnClick = id => {
-    let targetURL = this.state.images.find(img => img.id === id).url
+    const { images, options } = this.state
+
+    let target = images.find(img => img.id === id).url
+
+    const clearStyles = options.map(item => {
+      if (item.stylesCell) {
+        delete item.stylesCell
+        return item
+      }
+
+      return item
+    })
+
     const values = {
-      shuffleOptions: shuffle(options),
-      targetURL,
+      shuffleOptions: shuffle(initialOptions),
+      options: clearStyles,
+      targetCell: false,
+      targetURL: target,
     }
 
     this.setState(values)
@@ -64,67 +80,71 @@ class App extends React.Component {
 
   takeCellImg = (id, e) => {
     const { backgroundPosition, backgroundImage } = e.target.style
-    const { active, shuffleOptions } = this.state
+    const { targetCell, shuffleOptions } = this.state
 
-    if (!active && backgroundImage) {
+    if (!targetCell && backgroundImage) {
       const stylesCell = {
-        position: backgroundPosition,
-        url: backgroundImage,
+        backgroundPosition,
+        backgroundImage,
       }
 
-      const options = shuffleOptions.filter(item => item.id !== id)
-      const values = { stylesCell, shuffleOptions: options, active: true }
+      const shuffleOptionsUpdate = shuffleOptions.filter(item => item.id !== id)
+      const values = {
+        stylesCell,
+        shuffleOptions: shuffleOptionsUpdate,
+        targetCell: true,
+      }
 
       this.setState(values)
     }
   }
 
-  dropCellImg = e => {
-    const style = e.target.style
-    const {
-      active,
-      stylesCell: { position, url },
-    } = this.state
+  dropCellImg = (id, e) => {
+    const targetStyle = e.target.style
+    const { options, targetCell, stylesCell } = this.state
 
-    if (active && !style.backgroundImage) {
-      style.backgroundPosition = position
-      style.backgroundImage = url
-
-      this.setState({ active: false })
-    }
-  }
-
-  takeCellGameBoard = (id, e) => {
-    e.preventDefault()
-
-    this.setState({ switchId: id })
-  }
-
-  switchCellGameBoard = id => {
-    const { options, switchId } = this.state
-
-    if (id !== switchId) {
-      const switchOptions = options.map(option => {
-        if (option.id === id) return { ...option, id: switchId }
-        else if (option.id === switchId) return { ...option, id }
-        else return option
+    if (targetCell && !targetStyle.backgroundImage) {
+      const updateOptions = options.map(item => {
+        if (item.id === id)
+          return {
+            ...item,
+            stylesCell,
+          }
+        else return item
       })
 
-      this.setState({ options: switchOptions })
+      this.setState({ targetCell: false, options: updateOptions })
     }
   }
 
-  clearCellPuzzle = () => {
+  takeCellGameBoard = (index, e) => {
+    e.preventDefault()
+
+    this.setState({ switchIndex: index })
+  }
+
+  switchCellGameBoard = index => {
+    const { options, switchIndex } = this.state
+
+    if (index !== switchIndex) {
+      const temp = options[index]
+      options[index] = options[switchIndex]
+      options[switchIndex] = temp
+
+      this.setState({ options })
+    }
+  }
+
+  clearCellPuzzleBoards = () => {
     setTimeout(() => {
       const clearning = {
-        active: false,
+        targetCell: false,
         stylesCell: {},
         targetURL: '',
       }
       this.setState(clearning)
     }, 200)
   }
-
 
   render() {
     if (this.state.images.length) {
@@ -140,7 +160,7 @@ class App extends React.Component {
             values={this.state}
             takeCellImg={this.takeCellImg}
             dropCellImg={this.dropCellImg}
-            clearCellPuzzle={this.clearCellPuzzle}
+            clearCellPuzzle={this.clearCellPuzzleBoards}
             takeCellGameBoard={this.takeCellGameBoard}
             switchCellGameBoard={this.switchCellGameBoard}
             morePictures={this.morePictures}
