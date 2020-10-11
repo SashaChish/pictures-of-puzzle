@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import BoardShuffle from './BoardShuffle'
+import CellShuffle from './CellShuffle'
+import CellForPlay from './CellForPlay'
 import Loader from '../Loader/Loader'
-import BoardForPlay from './BoardForPlay'
 import Buttons from '../Buttons/Buttons'
 
 class PuzzleBoards extends React.Component {
   render() {
     const {
-      values,
+      values: { targetURL, perPage, options, shuffleOptions },
       takeCellImg,
       dropCellImg,
       takeCellGameBoard,
@@ -19,19 +19,19 @@ class PuzzleBoards extends React.Component {
     } = this.props
 
     const shuffledSize = {
-      width: values.shuffleOptions.length <= 6 ? '600px' : '700px',
-      height: values.shuffleOptions.length <= 4 ? '200px' : '470px',
+      width: shuffleOptions.length <= 6 ? '600px' : '750px',
+      height: shuffleOptions.length <= 4 ? '400px' : '470px',
     }
 
     return (
       <div className="container-boards">
         <div className="shuffled-puzzles" style={shuffledSize}>
-          {values.targetURL ? (
-            values.shuffleOptions.map(option => (
-              <BoardShuffle
+          {targetURL.image ? (
+            shuffleOptions.map(option => (
+              <CellShuffle
                 key={option.id}
                 id={option.id}
-                url={values.targetURL}
+                url={targetURL.image}
                 takeCell={takeCellImg}
                 options={option}
               />
@@ -43,20 +43,20 @@ class PuzzleBoards extends React.Component {
             </div>
           )}
         </div>
-        {values.targetURL && (
+        {targetURL.image && (
           <Buttons
-            perPage={values.perPage}
+            perPage={perPage}
             clearCellPuzzle={clearCellPuzzle}
             morePictures={morePictures}
           />
         )}
-        {values.targetURL && (
+        {targetURL.image && (
           <div>
             <h2>Game board</h2>
             <div className="board-for-play">
-              {values.options.map((option, index) => (
-                <BoardForPlay
-                  url={values.targetURL}
+              {options.map((option, index) => (
+                <CellForPlay
+                  url={targetURL.image}
                   index={index}
                   key={option.id}
                   option={option}

@@ -2,10 +2,11 @@ import React from 'react'
 
 import StickySlider from './componens/StickySlider/StickiSliders'
 import PuzzleBoards from './componens/Puzzle/PuzzleBoards'
+import BackVideo from './componens/BackVideo/BackVideo'
+import Loader from './componens/Loader/Loader'
 import shuffle from './utils/shuffle'
 import { initialOptions } from './data/puzzleOptions'
 import { key } from './data/api'
-import Loader from './componens/Loader/Loader'
 
 class App extends React.Component {
   constructor() {
@@ -15,8 +16,12 @@ class App extends React.Component {
       options: initialOptions,
       shuffleOptions: [],
       images: [],
+      videos: [],
       perPage: 20,
-      targetURL: '',
+      targetURL: {
+        image: '',
+        video: '',
+      },
       switchIndex: 0,
       targetCell: false,
       stylesCell: {},
@@ -24,7 +29,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(this.getImages, 2000)
+    setTimeout(() => {
+      this.getImages()
+      this.getVideo()
+    }, 2000)
   }
 
   componentDidUpdate(props, state) {
@@ -35,14 +43,29 @@ class App extends React.Component {
     }
   }
 
+  getVideo = () => {
+    fetch(`https://pixabay.com/api/videos/?key=${key}&per_page=200`)
+      .then(response => response.json())
+      .then(json => json.hits)
+      .then(data => {
+        const videos = data.map(hit => ({
+          id: hit.id,
+          tags: hit.tags,
+          url: hit.videos.large.url,
+        }))
+
+        this.setState({ videos })
+      })
+  }
+
   getImages = perPage => {
     fetch(
       `https://pixabay.com/api/?key=${key}&image_type=photo&per_page=${perPage}`
     )
       .then(response => response.json())
       .then(json => json.hits)
-      .then(hits => {
-        const images = hits.map(hit => ({
+      .then(data => {
+        const images = data.map(hit => ({
           id: hit.id,
           tags: hit.tags,
           url: hit.webformatURL,
@@ -54,10 +77,26 @@ class App extends React.Component {
 
   morePictures = () => this.setState({ perPage: this.state.perPage + 20 })
 
-  changeImgOnClick = id => {
-    const { images, options } = this.state
+  _searchVideoURL = (tags, videos) => {
+    const tagsForSearch = tags.trim().split(',')
+    let url = ''
 
-    let target = images.find(img => img.id === id).url
+    videos.forEach(video => {
+      for (let tag of tagsForSearch) {
+        if (video.tags.includes(tag) && !url) {
+          url = video.url
+        }
+      }
+    })
+
+    return url
+  }
+
+  changeImgOnClick = id => {
+    const { images, options, videos } = this.state
+
+    const targetImg = images.find(img => img.id === id)
+    const video = this._searchVideoURL(targetImg.tags, videos)
 
     const clearStyles = options.map(item => {
       if (item.stylesCell) {
@@ -72,7 +111,7 @@ class App extends React.Component {
       shuffleOptions: shuffle(initialOptions),
       options: clearStyles,
       targetCell: false,
-      targetURL: target,
+      targetURL: { image: targetImg.url, video },
     }
 
     this.setState(values)
@@ -140,19 +179,26 @@ class App extends React.Component {
       const clearning = {
         targetCell: false,
         stylesCell: {},
-        targetURL: '',
+        targetURL: { image: '' },
       }
       this.setState(clearning)
     }, 200)
   }
 
   render() {
-    if (this.state.images.length) {
+    const {
+      images,
+      videos,
+      targetURL: { image, video },
+    } = this.state
+
+    if (images.length) {
       return (
         <>
+          {videos && <BackVideo videoURL={video} />}
           <StickySlider
-            images={this.state.images}
-            targetURL={this.state.targetURL}
+            images={images}
+            imageURL={image}
             changeImg={this.changeImgOnClick}
           />
           <hr className="hr-horizontal-gradient" />

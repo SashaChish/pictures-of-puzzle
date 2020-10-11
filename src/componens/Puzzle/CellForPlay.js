@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class BoardForPlay extends React.Component {
+class CellForPlay extends React.Component {
 
   fokus = e => {
     e.preventDefault()
@@ -27,7 +27,7 @@ class BoardForPlay extends React.Component {
   }
 }
 
-BoardForPlay.propTypes = {
+CellForPlay.propTypes = {
   option: PropTypes.shape({
     id: PropTypes.number.isRequired,
     item: PropTypes.object
@@ -37,4 +37,4 @@ BoardForPlay.propTypes = {
   switchCell: PropTypes.func.isRequired,
 }
 
-export default BoardForPlay
+export default CellForPlay

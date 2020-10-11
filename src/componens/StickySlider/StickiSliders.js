@@ -21,10 +21,10 @@ class StickySlider extends React.Component {
   }
 
   goCurrent = () => {
-    const { images, targetURL } = this.props
+    const { images, imageURL } = this.props
     const { current } = this.swiperRef
 
-    const currentIndex = images.findIndex(img => img.url === targetURL)
+    const currentIndex = images.findIndex(img => img.url === imageURL)
 
     if (currentIndex !== -1) current.swiper.slideTo(currentIndex - 1, 1000)
   }
@@ -54,12 +54,12 @@ class StickySlider extends React.Component {
         slideShadows: false,
       },
       pagination: {
-        el: '.swiper-pagination',
+        el: '.swiper-pagination.pagination-fraction-white',
         type: 'fraction',
       },
       navigation: {
-        nextEl: '.swiper-button-next.swiper-button-black',
-        prevEl: '.swiper-button-prev.swiper-button-black',
+        nextEl: '.swiper-button-next.swiper-button-white',
+        prevEl: '.swiper-button-prev.swiper-button-white',
       },
     }
 
@@ -90,7 +90,7 @@ class StickySlider extends React.Component {
 StickySlider.propTypes = {
   images: PropTypes.arrayOf(PropTypes.object).isRequired,
   changeImg: PropTypes.func.isRequired,
-  targetURL: PropTypes.string.isRequired,
+  imageURL: PropTypes.string.isRequired,
 }
 
 export default StickySlider

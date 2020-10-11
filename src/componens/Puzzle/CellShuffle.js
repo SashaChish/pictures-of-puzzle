@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class BoardShuffle extends React.Component {
-
+class CellShuffle extends React.Component {
   render() {
     const {
       url,
@@ -19,19 +18,16 @@ class BoardShuffle extends React.Component {
     }
 
     return (
-      <div className="cell" 
-      style={styles} 
-      onClick={takeCell.bind(null, id)} 
-      />
+      <div className="cell" style={styles} onClick={takeCell.bind(null, id)} />
     )
   }
 }
 
-BoardShuffle.propTypes = {
+CellShuffle.propTypes = {
   url: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   position: PropTypes.string,
   takeCell: PropTypes.func.isRequired,
 }
 
-export default BoardShuffle
+export default CellShuffle

@@ -48,7 +48,7 @@ $color: rgb(116, 64, 64);
 
 h2 {
   margin-bottom: 2rem;
-  color: $color;
+  color: white;
   text-align: center;
 }
 
@@ -104,10 +104,56 @@ h2 {
   }
 }
 
+#video-bg {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: -100;
+  background: white;
+  background-size: cover;
+
+  video {
+    width: 100%;
+    height: auto;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.60);
+  }
+
+  & > video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%; 
+    min-height: 100%;
+    width: auto;
+    height: auto; 
+  }
+
+  @supports (object-fit: cover) {
+    & > video {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
 .container-sticky-slider {
   border-radius: 5px;
   overflow: hidden;
-  background-color: #fff;
   width: 500px;
 
   .content-sticky-slider {
@@ -117,7 +163,7 @@ h2 {
   }
 
   .footer-sticky-slider {
-    color: $color;
+    color: white;
     font-weight: 760;
     font-size: 1.60em;
     text-align: center;
@@ -163,6 +209,9 @@ h2 {
   }
 }
 
+.pagination-fraction-white {
+  color: white;
+}
 
 .container-boards {
   display: flex;
@@ -185,7 +234,7 @@ h2 {
   }
 
   .shuffled-puzzles {
-    width: 700px;
+    width: 800px;
     height: 470px;
     margin-top: 5.5rem;
     display: flex;
@@ -194,6 +243,10 @@ h2 {
 
     &:active { 
       cursor: grabbing;
+    }
+
+    .cell {
+      margin: .5rem;
     }
 
     .cell:hover {
